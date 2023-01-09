@@ -1,12 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-
+import { useEffect } from 'react'
+import { useDispatch } from "react-redux";
+import { getData } from './redux/Actions';
+import NewPost from './components/newPost/newPost';
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getData())
+  }, [dispatch])
 
   return (
     <div className="App">
-      <h1>HELLO THE NEW TEMPLATE</h1>
+     <NewPost />
     </div>
   )
 }
