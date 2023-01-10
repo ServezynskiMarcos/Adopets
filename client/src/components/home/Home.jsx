@@ -45,7 +45,7 @@ const Home = () => {
               </Text>
               <Text fontFamily={"secondary"} color={"white"}>
                 Hoy todos podemos ayudarlos, todos se merecen un hogar. <br />{" "}
-                Scrollea y encontra a tu mejor amigo, el te está esperando.
+                Scrollea y encontra a tu mejor amigo, él te está esperando.
               </Text>
             </Stack>
             <Stack>

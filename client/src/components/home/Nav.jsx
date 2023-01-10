@@ -1,6 +1,6 @@
-import { Avatar, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Image, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-
+import logo from "../../assets/logo.png"
 const Nav = () => {
   return (
     <Stack
@@ -14,7 +14,7 @@ const Nav = () => {
       color={"white"}
     >
       <Stack>
-        <Text>Logo</Text>
+        <Image src={logo} w={'150px'}/>
       </Stack>
       <Stack direction={"row"} alignItems={"center"} spacing={10}>
         <Stack direction={"row"} spacing={10}>
