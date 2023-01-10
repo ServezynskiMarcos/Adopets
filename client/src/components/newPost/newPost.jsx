@@ -1,3 +1,4 @@
+import { Button, FormLabel, Input } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -11,12 +12,12 @@ const newPost = () => {
   });
   const dispatch = useDispatch();
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     setPost({
       ...post,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,13 +25,13 @@ const newPost = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label>name</label>
-      <input type="text" name="name" onChange={handleChange} />
-      <label>age</label>
-      <input type="text" name="age" onChange={handleChange}/>
-      <label>species</label>
-      <input type="text" name="species" onChange={handleChange}/>
-      <button type="submit">submit</button>
+      <FormLabel>name</FormLabel>
+      <Input type="text" name="name" onChange={handleChange} />
+      <FormLabel>age</FormLabel>
+      <Input type="text" name="age" onChange={handleChange} />
+      <FormLabel>species</FormLabel>
+      <Input type="text" name="species" onChange={handleChange} />
+      <Button type="submit">submit</Button>
     </form>
   );
 };

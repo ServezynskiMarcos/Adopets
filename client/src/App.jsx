@@ -1,20 +1,14 @@
-import { useEffect } from 'react'
-import { useDispatch } from "react-redux";
-import { getData } from './redux/Actions';
-import NewPost from './components/newPost/newPost';
+import { Container } from "@chakra-ui/react";
+import Home from "./components/home/Home";
+import Nav from "./components/home/Nav";
+// import NewPost from './components/newPost/newPost';
 function App() {
-  
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    dispatch(getData())
-  }, [dispatch])
-
   return (
-    <div className="App">
-     <NewPost />
-    </div>
-  )
+    <Container minH={"100vh"} minW={"full"} m={0} p={0}>
+      <Nav />
+      <Home />
+    </Container>
+  );
 }
 
-export default App
+export default App;
