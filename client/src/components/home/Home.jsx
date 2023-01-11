@@ -20,7 +20,8 @@ const Home = () => {
     e.preventDefault()
     dispatch(getForSpecies(specie))
     navigate("/pets");
-  }
+  };
+
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);

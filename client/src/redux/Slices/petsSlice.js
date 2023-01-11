@@ -25,8 +25,11 @@ export const petsSlice = createSlice({
       );
       state.filterPets = filter;
     },
+    getFilterId: (state, action) => {
+      state.filterPets = action.payload;
+    }
   },
 });
-export const { getAllPets, getFilterPets, getFilterUbication } =
+export const { getAllPets, getFilterPets, getFilterUbication, getFilterId } =
   petsSlice.actions;
 export default petsSlice.reducer;

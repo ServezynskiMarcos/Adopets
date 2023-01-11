@@ -9,11 +9,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Portada from "../../assets/Portada.png";
+import { getForId } from "../../redux/Actions";
 
 const Posts = () => {
+  
   const { allPets } = useSelector((state) => state.pets);
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  
+  const handleClick = (id) => {
+    dispatch(getForId(id))
+    navigate(`/pets/${id}`)
+  }
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={10} id="posts">
@@ -27,6 +38,7 @@ const Posts = () => {
             maxH={{ base: "md", xl: "lg" }}
             size="sm"
             borderRadius="20px 20px 10px 10px"
+            onClick={() => handleClick(pet.id)}
           >
             <Image
               src={pet.picture ? pet.picture : Portada}
