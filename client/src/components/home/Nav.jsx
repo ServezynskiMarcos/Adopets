@@ -1,15 +1,28 @@
-import { Avatar, Button, Image, Input, Stack, Text } from "@chakra-ui/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import {
+  Avatar,
+  Image,
+  Input,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
-import logo from "../../assets/logo.png";
 import { HiSearchCircle } from "react-icons/hi";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import { getForUbication } from "../../redux/Actions";
 
 const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
@@ -19,6 +32,8 @@ const Nav = () => {
     dispatch(getForUbication(search));
     navigate("/pets");
   };
+
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
   return (
     <Stack
@@ -67,10 +82,53 @@ const Nav = () => {
           <Text>Sobre Nosotros</Text>
           <Text>Ayuda</Text>
         </Stack>
-        <Avatar src="https://bit.ly/broken-link" size={"sm"} />
+
+        {isAuthenticated ? (
+          <Menu>
+            <MenuButton>
+              <Stack direction={"row"} alignItems={"center"}>
+                <Image
+                  src={user.picture}
+                  alt={user.name}
+                  borderRadius={"full"}
+                  w={"35px"}
+                />
+                <MdKeyboardArrowDown />
+              </Stack>
+            </MenuButton>
+            <MenuList color={"gray.800"}>
+              <MenuGroup title={user.name}>
+                <MenuItem
+                  onClick={() => logout({ returnTo: window.location.origin })}
+                >
+                  Cerrar Sesion{" "}
+                </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+            </MenuList>
+          </Menu>
+        ) : (
+          <Menu>
+            <MenuButton>
+              <Stack direction={"row"} alignItems={"center"}>
+                <Avatar src="https://bit.ly/broken-link" size={"sm"} />
+                <MdKeyboardArrowDown />
+              </Stack>
+            </MenuButton>
+            <MenuList color={"gray.800"}>
+              <MenuGroup title="Perfil">
+                <MenuItem onClick={() => loginWithRedirect()}>
+                  Iniciar Sesion - Registrarse
+                </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+            </MenuList>
+          </Menu>
+        )}
       </Stack>
     </Stack>
   );
 };
 
 export default Nav;
+//
