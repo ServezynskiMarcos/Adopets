@@ -1,16 +1,26 @@
-import { Button, Card, CardBody, Image, Stack, Text } from "@chakra-ui/react";
+import { Button, Card, Image, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getData } from "../../redux/Actions";
-import banner from "../../assets/banner2.png";
-import hamster from "../../assets/hamster.png";
-import felinos from "../../assets/felinos.png";
-import caninos from "../../assets/caninos.png";
-import Portada from "../../assets/Portada.png";
 import { FaHeart } from "react-icons/fa";
-const Home = () => {
-  const dispatch = useDispatch();
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import banner from "../../assets/banner2.png";
+import caninos from "../../assets/caninos.png";
+import felinos from "../../assets/felinos.png";
+import hamster from "../../assets/hamster.png";
+import Portada from "../../assets/Portada.png";
+import { getData, getForSpecies } from "../../redux/Actions";
+import Posts from "../posts/Posts";
 
+const Home = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = (e, specie) => {
+    e.preventDefault()
+    dispatch(getForSpecies(specie))
+    navigate("/pets");
+  }
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
@@ -33,7 +43,7 @@ const Home = () => {
                 color={"white"}
                 lineHeight={1}
               >
-                Cambiando vidas.
+                Cambia su vida.
               </Text>
               <Text
                 fontFamily={"primary"}
@@ -41,7 +51,7 @@ const Home = () => {
                 color={"white"}
                 lineHeight={1}
               >
-                Salvando animales.
+                Ellos cambiaran la tuya.
               </Text>
               <Text fontFamily={"secondary"} color={"white"}>
                 Hoy todos podemos ayudarlos, todos se merecen un hogar. <br />{" "}
@@ -49,9 +59,9 @@ const Home = () => {
               </Text>
             </Stack>
             <Stack>
-              <Button variant={"solid"} size={"lg"}>
+              <a href="#posts"><Button variant={"solid"} size={"lg"}>
                 QUIERO ADOPTAR <FaHeart style={{ marginLeft: "10px" }} />
-              </Button>
+              </Button></a>
             </Stack>
           </Stack>
         </Stack>
@@ -66,27 +76,31 @@ const Home = () => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Card maxW="3xs">
+        <Card maxW="3xs" onClick={(e) => handleClick(e, "perro")} cursor={'pointer'}>
           <Image
             src={caninos}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
         </Card>
-        <Card maxW="3xs">
+        <Card maxW="3xs" onClick={(e) => handleClick(e, "gato")} cursor={'pointer'}>
           <Image
             src={felinos}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
         </Card>
-        <Card maxW="3xs">
+        <Card maxW="3xs" onClick={(e) => handleClick(e, "otro")} cursor={'pointer'}>
           <Image
             src={hamster}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
         </Card>
+      </Stack>
+      <Stack w={'full'} minH={'100vh'} paddingY={12}>
+        <Text>Mascotas</Text>
+        <Posts />
       </Stack>
     </Stack>
   );

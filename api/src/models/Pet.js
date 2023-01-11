@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     species: {
-      type: DataTypes.ENUM('dog', 'cat', 'other'),
+      type: DataTypes.ENUM('perro', 'gato', 'otro'),
       allowNull: false,
     },
     description: {
@@ -21,7 +21,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     coexistence: {
-      type: DataTypes.ENUM('yes', 'no'),
+      type: DataTypes.ENUM('si', 'no'),
+    },
+    ubication: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },{ timestamps: false });
 };

@@ -4,7 +4,7 @@ const router = Router();
 
 router.post("/newpost", async (req, res) => {
   try {
-    const { name, age, species, description, picture, coexistence } = req.body;
+    const { name, age, species, description, picture, coexistence, ubication } = req.body;
     if (!name || !age || !species) {
       throw { status: 400, message: "missing data" };
     }
@@ -15,10 +15,11 @@ router.post("/newpost", async (req, res) => {
       description,
       picture,
       coexistence,
+      ubication
     });
     res.status(201).json(newPost);
   } catch (error) {
-    res.status(error.status).send(error.message);
+    res.status(error.status).send({msg: error.message});
   }
 });
 
