@@ -13,7 +13,7 @@ import {
   Text,
   useColorMode,
   Icon,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { HiSearchCircle } from "react-icons/hi";
@@ -39,7 +39,7 @@ const Nav = () => {
 
   const { toggleColorMode, colorMode } = useColorMode();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-  const fontColor = useColorModeValue("gray.700","whiteAlpha.900");
+  const fontColor = useColorModeValue("gray.700", "whiteAlpha.900");
   return (
     <Stack
       direction={"row"}
@@ -49,17 +49,15 @@ const Nav = () => {
       justifyContent={"space-between"}
       alignItems={"center"}
       fontFamily={"primary"}
-      color={'white'}
+      color={"white"}
     >
-      <Stack>
+      <Stack direction={'row'} alignItems={"center"}>
         <a href="/">
           <Image src={logo} w={"150px"} />
         </a>
         <Icon
           onClick={toggleColorMode}
           as={colorMode === "dark" ? FaSun : FaMoon}
-          
-          
         />
       </Stack>
 
