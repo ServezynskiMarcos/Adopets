@@ -11,6 +11,9 @@ import {
   MenuList,
   Stack,
   Text,
+  useColorMode,
+  Icon,
+  useColorModeValue
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { HiSearchCircle } from "react-icons/hi";
@@ -19,6 +22,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { getForUbication } from "../../redux/Actions";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -33,8 +37,9 @@ const Nav = () => {
     navigate("/pets");
   };
 
+  const { toggleColorMode, colorMode } = useColorMode();
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-
+  const fontColor = useColorModeValue("gray.700","whiteAlpha.900");
   return (
     <Stack
       direction={"row"}
@@ -44,12 +49,18 @@ const Nav = () => {
       justifyContent={"space-between"}
       alignItems={"center"}
       fontFamily={"primary"}
-      color={"white"}
+      color={'white'}
     >
       <Stack>
         <a href="/">
           <Image src={logo} w={"150px"} />
         </a>
+        <Icon
+          onClick={toggleColorMode}
+          as={colorMode === "dark" ? FaSun : FaMoon}
+          
+          
+        />
       </Stack>
 
       <Stack
@@ -96,7 +107,7 @@ const Nav = () => {
                 <MdKeyboardArrowDown />
               </Stack>
             </MenuButton>
-            <MenuList color={"gray.800"}>
+            <MenuList color={fontColor}>
               <MenuGroup title={user.name}>
                 <MenuItem
                   onClick={() => logout({ returnTo: window.location.origin })}
@@ -115,7 +126,7 @@ const Nav = () => {
                 <MdKeyboardArrowDown />
               </Stack>
             </MenuButton>
-            <MenuList color={"gray.800"}>
+            <MenuList color={fontColor}>
               <MenuGroup title="Perfil">
                 <MenuItem onClick={() => loginWithRedirect()}>
                   Iniciar Sesion - Registrarse

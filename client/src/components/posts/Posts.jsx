@@ -7,6 +7,7 @@ import {
   Image,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,19 +21,19 @@ const Posts = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
-  
+
   const handleClick = (id) => {
     dispatch(getForId(id))
     navigate(`/pets/${id}`)
   }
+ const cardColor = useColorModeValue("whiteAlpha.900", "gray.700");
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={10} id="posts">
       {allPets?.map((pet) => {
         return (
           <Card
-            bg={"gray.600"}
-            color={"white"}
+            bg={cardColor}
             alignItems={"center"}
             maxW={{ base: "sm", xl: "sm" }}
             maxH={{ base: "md", xl: "lg" }}

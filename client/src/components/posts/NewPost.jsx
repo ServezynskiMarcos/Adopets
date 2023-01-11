@@ -1,4 +1,4 @@
-import { Button, FormLabel, Input, Select } from "@chakra-ui/react";
+import { Button, FormLabel, Image, Input, Select } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -50,9 +50,8 @@ const NewPost = () => {
     <form onSubmit={handleSubmit}>
       <Input type="file" onChange={(e) => setFile(e.target.files[0])}/>
       {file ? (
-        <img alt="Preview" height="60" src={URL.createObjectURL(file)} />
+        <Image alt="Preview" w="200px" h="200px" src={URL.createObjectURL(file)} />
       ) : null}
-      <button onClick={upload}>Upload</button>
       <FormLabel>Nombre</FormLabel>
       <Input type="text" name="name" onChange={handleChange} />
       <FormLabel>Edad</FormLabel>
@@ -80,7 +79,8 @@ const NewPost = () => {
         <option value="si">Si</option>
         <option value="no">No</option>
       </Select>
-      <Button type="submit">submit</Button>
+      <Button onClick={upload}>Confirmar imagen</Button>
+      <Button type="submit">Enviar</Button>
     </form>
   );
 };
