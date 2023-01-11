@@ -98,7 +98,7 @@ const Home = () => {
           />
         </Card>
       </Stack>
-      <Stack w={'full'} minH={'100vh'} paddingY={12}>
+      <Stack w={'full'} minH={'100vh'} paddingY={12} paddingX={20}>
         <Text>Mascotas</Text>
         <Posts />
       </Stack>
