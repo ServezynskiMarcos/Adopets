@@ -1,20 +1,30 @@
 import {
+  Alert,
+  AlertIcon,
   Button,
   Checkbox,
-  FormLabel, Input,
+  FormLabel,
+  Image,
+  Input,
   Select,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import banner from "../../assets/bannerform1.png";
 import { postData } from "../../redux/Actions";
+
 const NewPost = () => {
   const [file, setFile] = useState(null);
   const [img, setImg] = useState("");
   const [show, setShow] = useState(true);
+  const [showB, setShowB] = useState(false);
+
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [post, setPost] = useState({
     name: "",
@@ -35,8 +45,12 @@ const NewPost = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postData(post));
+    if (post.name === "" || post.age === "" || post.species === "" || post.ubication === "") {
+      setShowB(!showB)
+    } else {
+      dispatch(postData(post));
+      navigate("/");
+    }
   };
 
   const CLOUD_NAME = "dfu4b6gky";
@@ -54,16 +68,24 @@ const NewPost = () => {
   };
 
   return (
-    <Stack
-      w={"full"}
-      h={"100vh"}
-      justifyContent={"center"}
-      alignItems={"center"}
-    >
-      <Stack w={"lg"} alignItems={"center"} p={8} borderRadius={"lg"}>
+    <Stack w={"full"} h={"100vh"} direction={"row"}>
+     
+      <Stack h={"100vh"} w={"70%"}>
+        <Image src={banner} h={"100vh"} />
+      </Stack>
+      <Stack
+        h={"100vh"}
+        w={"30%"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
         <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ marginBottom: "10px" }}
+            />
             {file ? (
               show ? (
                 <Stack
@@ -77,14 +99,13 @@ const NewPost = () => {
               ) : null
             ) : null}
           </Stack>
-
-          <FormLabel>Nombre</FormLabel>
+          <FormLabel>Nombre *</FormLabel>
           <Input type="text" name="name" onChange={handleChange} />
-          <FormLabel>Edad</FormLabel>
+          <FormLabel>Edad *</FormLabel>
           <Input type="text" name="age" onChange={handleChange} />
-          <FormLabel>Tipo de Mascota</FormLabel>
+          <FormLabel>Tipo de Mascota *</FormLabel>
           <Select
-            placeholder="Select option"
+            placeholder="seleccione"
             name="species"
             onChange={handleChange}
           >
@@ -92,23 +113,31 @@ const NewPost = () => {
             <option value="gato">Gato</option>
             <option value="otro">Otro</option>
           </Select>
-          <FormLabel>Ubicacion</FormLabel>
+          <FormLabel>Ubicación *</FormLabel>
           <Input type="text" name="ubication" onChange={handleChange} />
-          <FormLabel>Descripcion</FormLabel>
+          <FormLabel>Descripción</FormLabel>
           <Input type="text" name="description" onChange={handleChange} />
-          <FormLabel>Convive con otras mascotas?</FormLabel>
+          <FormLabel>¿Convive con otras mascotas?</FormLabel>
           <Select
-            placeholder="Select option"
+            placeholder="seleccione"
             name="coexistence"
             onChange={handleChange}
           >
             <option value="si">Si</option>
             <option value="no">No</option>
           </Select>
-          <Button type="submit" margin={2}>
-            Enviar
-          </Button>
+          <Stack>
+            <Button type="submit" margin={2}>
+              Enviar
+            </Button>
+          </Stack>
         </form>
+        {showB ? (
+        <Alert status="error">
+          <AlertIcon />
+          Debe completar los campos requeridos (*)
+        </Alert>
+      ) : null}
       </Stack>
     </Stack>
   );
