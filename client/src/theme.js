@@ -16,6 +16,8 @@ export default extendTheme({
   fonts: {
     primary: `'Cabin Condensed', sans-serif`,
     secondary: `'Palanquin', sans-serif`,
+    tertiary: `'Poppins', sans-serif`,
+    
   },
   components: {
     Button: {

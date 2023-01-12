@@ -84,7 +84,7 @@ const Nav = () => {
       </Stack>
       <Stack direction={"row"} alignItems={"center"} spacing={10}>
         <Stack direction={"row"} spacing={10}>
-          <a href="/newpost">
+          <a href="/new_post">
             <Text>Publicar</Text>
           </a>
           <Text>Contacto</Text>

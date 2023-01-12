@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Pet } = require("../db");
+const { Pet, User } = require("../db");
 const router = Router();
 
 
@@ -49,5 +49,42 @@ router.get("/pets/:id", async (req, res) => {
     res.status(error.status).send({ msg: error.message });
   }
 });
+
+//USER
+
+router.post("/newuser", async (req, res) => {
+  try {
+    const { name, email, password, phone } =
+      req.body;
+    if (!name || !email || !password ) {
+      throw { status: 400, message: "Faltan datos obligatorios" };
+    }
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      phone,
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(error.status).send({ msg: error.message });
+  }
+});
+
+router.get("/login/:email/:password", async (req, res) =>{
+  const { email, password } = req.params;
+  try {
+    const userValidate = await User.findOne({
+      where: { email: email, password: password},
+    });
+    if (userValidate) {
+      return res.status(200).send(userValidate);
+    } else {
+      res.status(404).send("el usuario no esta registrado");
+    }
+  } catch (error) {
+    res.status(error.status).send({ msg: error.message });
+  }
+})
 
 module.exports = router;
