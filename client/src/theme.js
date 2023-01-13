@@ -9,7 +9,7 @@ export default extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        backgroundColor: mode("white", "gray.800")(props),
+        backgroundColor: mode("gray.200", "gray.800")(props),
       },
     }),
   },
