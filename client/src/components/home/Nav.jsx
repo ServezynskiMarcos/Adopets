@@ -18,7 +18,7 @@ import {
 import React, { useState } from "react";
 import { HiSearchCircle } from "react-icons/hi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { getForUbication } from "../../redux/Actions";
@@ -28,17 +28,23 @@ const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const { userLog } = useSelector((state) => state.users);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
+
   const handleClick = () => {
     dispatch(getForUbication(search));
     navigate("/pets");
   };
 
+  const logOut = (e) => {
+    localStorage.removeItem('user');
+    location.reload()  
+  }
+
   const { toggleColorMode, colorMode } = useColorMode();
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const fontColor = useColorModeValue("gray.700", "whiteAlpha.900");
   return (
     <Stack
@@ -51,7 +57,7 @@ const Nav = () => {
       fontFamily={"primary"}
       color={"white"}
     >
-      <Stack direction={'row'} alignItems={"center"}>
+      <Stack direction={"row"} alignItems={"center"}>
         <a href="/">
           <Image src={logo} w={"150px"} />
         </a>
@@ -92,26 +98,17 @@ const Nav = () => {
           <Text>Ayuda</Text>
         </Stack>
 
-        {isAuthenticated ? (
+        {userLog.email ? (
           <Menu>
             <MenuButton>
               <Stack direction={"row"} alignItems={"center"}>
-                <Image
-                  src={user.picture}
-                  alt={user.name}
-                  borderRadius={"full"}
-                  w={"35px"}
-                />
+              <Avatar src='https://bit.ly/broken-link' size={"sm"} />
                 <MdKeyboardArrowDown />
               </Stack>
             </MenuButton>
             <MenuList color={fontColor}>
-              <MenuGroup title={user.name}>
-                <MenuItem
-                  onClick={() => logout({ returnTo: window.location.origin })}
-                >
-                  Cerrar Sesion{" "}
-                </MenuItem>
+              <MenuGroup title={userLog.name}>
+                <MenuItem onClick={logOut}>Cerrar Sesion </MenuItem>
               </MenuGroup>
               <MenuDivider />
             </MenuList>
@@ -124,13 +121,19 @@ const Nav = () => {
                 <MdKeyboardArrowDown />
               </Stack>
             </MenuButton>
+
             <MenuList color={fontColor}>
               <MenuGroup title="Perfil">
-                <MenuItem onClick={() => loginWithRedirect()}>
-                  Iniciar Sesion - Registrarse
-                </MenuItem>
+                <MenuDivider />
+                <a href={"/sing_up"}>
+                  <MenuItem>Registrarse</MenuItem>
+                </a>
               </MenuGroup>
-              <MenuDivider />
+
+              <a href={"/log_in"}>
+                {" "}
+                <MenuItem>Iniciar sesion</MenuItem>
+              </a>
             </MenuList>
           </Menu>
         )}

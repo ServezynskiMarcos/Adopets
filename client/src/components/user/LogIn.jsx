@@ -1,33 +1,42 @@
-import { Button, FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { logIn } from '../../redux/Actions';
+import {
+
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logIn } from "../../redux/Actions";
 
 const LogIn = () => {
-    const dispatch = useDispatch();
-    // const navigate = useNavigate();
   
-    const [user, setUser] = useState({
-      email: "",
-      password: "",
+  const dispatch = useDispatch();
+  const { userLog } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
     });
-  
-    const handleChange = (e) => {
-      setUser({
-        ...user,
-        [e.target.name]: e.target.value,
-      });
-    };
-  
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(logIn(user.email, user.password));
-    //   navigate("/");
-    };
-  
-    return (
-      <>
-        <form onSubmit={handleSubmit}>
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(logIn(user.email, user.password));
+  };
+
+  return (
+    <>
+      {userLog.name ? (
+        navigate("/")
+      ) : (
+        <form onSubmit={(e) => handleSubmit(e)}>
           <FormControl isRequired>
             <FormLabel>Email</FormLabel>
             <Input
@@ -37,7 +46,7 @@ const LogIn = () => {
               variant={"filled"}
             />
           </FormControl>
-  
+
           <FormControl isRequired>
             <FormLabel>Contrasena</FormLabel>
             <Input
@@ -53,8 +62,9 @@ const LogIn = () => {
             </Button>
           </Stack>
         </form>
-      </>
-    );
-  };
+      )}
+    </>
+  );
+};
 
-export default LogIn
+export default LogIn;

@@ -34,5 +34,5 @@ export const newUser = (user) => () => {
 export const logIn = (email,password) => (dispatch) => {
   axios(`${url}login/${email}/${password}`)
     .then((data) => dispatch(userLogIn(data.data)))
-    .catch((e) => console.log(e));
+    .catch((e) => alert(e.response.data));
   }

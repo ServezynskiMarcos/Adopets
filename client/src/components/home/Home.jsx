@@ -12,13 +12,12 @@ import { getData, getForSpecies } from "../../redux/Actions";
 import Posts from "../posts/Posts";
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleClick = (e, specie) => {
-    e.preventDefault()
-    dispatch(getForSpecies(specie))
+    e.preventDefault();
+    dispatch(getForSpecies(specie));
     navigate("/pets");
   };
 
@@ -60,9 +59,11 @@ const Home = () => {
               </Text>
             </Stack>
             <Stack>
-              <a href="#posts"><Button variant={"solid"} size={"lg"}>
-                QUIERO ADOPTAR <FaHeart style={{ marginLeft: "10px" }} />
-              </Button></a>
+              <a href="#posts">
+                <Button variant={"solid"} size={"lg"}>
+                  QUIERO ADOPTAR <FaHeart style={{ marginLeft: "10px" }} />
+                </Button>
+              </a>
             </Stack>
           </Stack>
         </Stack>
@@ -77,21 +78,33 @@ const Home = () => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Card maxW="3xs" onClick={(e) => handleClick(e, "perro")} cursor={'pointer'}>
+        <Card
+          maxW="3xs"
+          onClick={(e) => handleClick(e, "perro")}
+          cursor={"pointer"}
+        >
           <Image
             src={caninos}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
         </Card>
-        <Card maxW="3xs" onClick={(e) => handleClick(e, "gato")} cursor={'pointer'}>
+        <Card
+          maxW="3xs"
+          onClick={(e) => handleClick(e, "gato")}
+          cursor={"pointer"}
+        >
           <Image
             src={felinos}
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
         </Card>
-        <Card maxW="3xs" onClick={(e) => handleClick(e, "otro")} cursor={'pointer'}>
+        <Card
+          maxW="3xs"
+          onClick={(e) => handleClick(e, "otro")}
+          cursor={"pointer"}
+        >
           <Image
             src={hamster}
             alt="Green double couch with wooden legs"
@@ -99,7 +112,7 @@ const Home = () => {
           />
         </Card>
       </Stack>
-      <Stack w={'full'} minH={'100vh'} paddingY={12} paddingX={20}>
+      <Stack w={"full"} minH={"100vh"} paddingY={12} paddingX={20}>
         <Text>Mascotas</Text>
         <Posts />
       </Stack>

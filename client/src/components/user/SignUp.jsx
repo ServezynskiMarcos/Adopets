@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { newUser } from "../../redux/Actions";
 
-const NewUserForm = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -60,7 +60,6 @@ const NewUserForm = () => {
           />
         </FormControl>
 
-
         <FormControl isRequired>
           <FormLabel>Telefono</FormLabel>
           <Input
@@ -80,4 +79,4 @@ const NewUserForm = () => {
   );
 };
 
-export default NewUserForm;
+export default SignUp;
