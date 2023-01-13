@@ -99,14 +99,14 @@ const Nav = () => {
         </Stack>
 
         {userLog.email ? (
-          <Menu>
+          <Menu >
             <MenuButton>
               <Stack direction={"row"} alignItems={"center"}>
               <Avatar src='https://bit.ly/broken-link' size={"sm"} />
                 <MdKeyboardArrowDown />
               </Stack>
             </MenuButton>
-            <MenuList color={fontColor}>
+            <MenuList color={fontColor} zIndex={4}>
               <MenuGroup title={userLog.name}>
                 <MenuItem onClick={logOut}>Cerrar Sesion </MenuItem>
               </MenuGroup>
@@ -122,7 +122,7 @@ const Nav = () => {
               </Stack>
             </MenuButton>
 
-            <MenuList color={fontColor}>
+            <MenuList color={fontColor} zIndex={4}>
               <MenuGroup title="Perfil">
                 <MenuDivider />
                 <a href={"/sing_up"}>

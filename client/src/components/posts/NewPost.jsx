@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import {
   Alert,
   AlertIcon,
@@ -14,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import banner from "../../assets/bannerform1.png";
 import { postData } from "../../redux/Actions";
@@ -24,6 +23,7 @@ const NewPost = () => {
   const [img, setImg] = useState("");
   const [show, setShow] = useState(true);
   const [showB, setShowB] = useState(false);
+  const { userLog } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,26 +74,19 @@ const NewPost = () => {
     setShow(!show);
   };
 
-  const { isAuthenticated } = useAuth0();
-
   return (
-    <Stack w={"full"} h={"90vh"} direction={"row"}>
-      <Stack h={"full"} w={"70%"} position={"relative"}>
+    <Stack w={"full"} h={"100vh"} direction={"row"}>
+      <Stack h={"full"} w={"70%"}>
         <Image src={banner} h={"full"} />
       </Stack>
-      {isAuthenticated ? (
-        <Stack
-          h={"full"}
-          w={"30%"}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
+      {userLog.name ? (
+        <Stack h={"full"} w={"30%"} alignItems={"center"}>
           <form onSubmit={handleSubmit}>
             <Stack spacing={2}>
               <input
                 type="file"
                 onChange={(e) => setFile(e.target.files[0])}
-                style={{ marginBottom: "10px" }}
+                style={{ marginBottom: "15px", marginTop: "15px" }}
               />
               {file ? (
                 show ? (
@@ -115,6 +108,8 @@ const NewPost = () => {
                 name="name"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl isRequired>
@@ -124,6 +119,8 @@ const NewPost = () => {
                 name="age"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
 
@@ -134,6 +131,8 @@ const NewPost = () => {
                 name="species"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               >
                 <option value="perro">Perro</option>
                 <option value="gato">Gato</option>
@@ -147,6 +146,8 @@ const NewPost = () => {
                 name="ubication"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl>
@@ -156,6 +157,8 @@ const NewPost = () => {
                 name="description"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl>
@@ -165,13 +168,15 @@ const NewPost = () => {
                 name="coexistence"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               >
                 <option value="si">Si</option>
                 <option value="no">No</option>
               </Select>
             </FormControl>
-            <Stack>
-              <Button type="submit" margin={2}>
+            <Stack alignItems={"center"}>
+              <Button type="submit" margin={2} w={"3xs"}>
                 Enviar
               </Button>
             </Stack>
@@ -189,7 +194,23 @@ const NewPost = () => {
           w={"30%"}
           alignItems={"center"}
           justifyContent={"center"}
+          position={"relative"}
         >
+          <Stack
+            position={"absolute"}
+            zIndex={3}
+            alignItems={"center"}
+            justifyContent={"center"}
+            h={"full"}
+            w={"full"}
+            backdropFilter="auto"
+            backdropBlur="3px"
+          >
+            <Text fontFamily={"tertiary"} textAlign={"center"} fontSize={"2xl"}>
+              Debe iniciar sesión <br /> para realizar una publicacion
+            </Text>
+          </Stack>
+
           <form onSubmit={handleSubmit}>
             <FormControl isDisabled>
               <FormLabel>Nombre</FormLabel>
@@ -198,6 +219,8 @@ const NewPost = () => {
                 name="name"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl isDisabled>
@@ -207,6 +230,8 @@ const NewPost = () => {
                 name="age"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
 
@@ -217,6 +242,8 @@ const NewPost = () => {
                 name="species"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               >
                 <option value="perro">Perro</option>
                 <option value="gato">Gato</option>
@@ -230,6 +257,8 @@ const NewPost = () => {
                 name="ubication"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl isDisabled>
@@ -239,6 +268,8 @@ const NewPost = () => {
                 name="description"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               />
             </FormControl>
             <FormControl isDisabled>
@@ -248,6 +279,8 @@ const NewPost = () => {
                 name="coexistence"
                 onChange={handleChange}
                 variant={"filled"}
+                w={"xs"}
+                marginBottom={2}
               >
                 <option value="si">Si</option>
                 <option value="no">No</option>
