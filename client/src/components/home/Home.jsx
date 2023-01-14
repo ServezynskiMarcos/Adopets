@@ -1,7 +1,7 @@
 import { Button, Card, Image, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { FaHeart } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import banner from "../../assets/banner2.png";
 import caninos from "../../assets/caninos.png";
@@ -14,7 +14,8 @@ import Posts from "../posts/Posts";
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { allPets } = useSelector((state) => state.pets);
+  console.log(allPets)
   const handleClick = (e, specie) => {
     e.preventDefault();
     dispatch(getForSpecies(specie));
@@ -112,10 +113,11 @@ const Home = () => {
           />
         </Card>
       </Stack>
-      <Stack w={"full"} minH={"100vh"} paddingY={12} paddingX={20}>
-        <Text>Mascotas</Text>
-        <Posts />
-      </Stack>
+      {allPets.length == 0 ? 89: (<Stack w={"full"} minH={"100vh"} paddingY={12} paddingX={20}>
+          <Text>Mascotas</Text>
+          <Posts />
+        </Stack>)
+        }
     </Stack>
   );
 };
